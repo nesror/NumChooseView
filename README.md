@@ -2,9 +2,7 @@ NumChooseView
 ========
 
 <img src="img\img_1.png" width="200" height="100"/>
-<video width="480" height="800" controls="controls">
-  <source src="img\device-2016-02-01-222858.mp4" type="video/mp4" />
-</video>
+<embed src="img\device-2016-02-01-222858.mp4" allowFullScreen="true" quality="high" width="480" height="800" align="middle" allowScriptAccess="always" />
 
 Add NumChooseView to your project
 ----------------------------
