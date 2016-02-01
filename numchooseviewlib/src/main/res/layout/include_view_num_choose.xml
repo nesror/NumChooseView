@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ll_num"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ImageView
+        android:id="@+id/num_les"
+        style="@style/iv_num"
+        android:src="@drawable/ic_num_les"
+        android:background="@color/bg_gray"/>
+
+    <View style="@style/v_line" />
+
+    <EditText
+        android:id="@+id/tv_num"
+        style="@style/et_num"
+        android:text="1" />
+
+    <View style="@style/v_line" />
+
+    <ImageView
+        android:id="@+id/num_add"
+        style="@style/iv_num"
+        android:src="@drawable/ic_num_add" />
+</LinearLayout>
