@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import cn.yzapp.numchooseviewlib.NumChooseView;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,6 +24,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numChooseView.setCanShowHint(true);
 
         findViewById(R.id.ok).setOnClickListener(this);
+        findViewById(R.id.show_num).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((Button) view).setText("数量" + numChooseView.getBuyNum());
+            }
+        });
 
     }
 

@@ -5,7 +5,9 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -29,7 +31,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private ImageView numAdd;
     private EditText tvNum;
     private ImageView numLes;
-    private static boolean showToast;
+    private boolean showToast;
 
     public NumChooseView(Context context) {
         super(context);
@@ -58,8 +60,60 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         tvNum = (EditText) numView.findViewById(R.id.tv_num);
         numLes = (ImageView) numView.findViewById(R.id.num_les);
         numAdd = (ImageView) numView.findViewById(R.id.num_add);
+        tvNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        tvNum.addTextChangedListener(new NumTextWatcher(getContext(), mNumBean, mGoodNum, tvNum, numLes, numAdd));
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //删除数量－置灰
+                if (editable.length() < 1) {
+                    numLes.setBackgroundResource(R.color.bg_gray);
+                    mGoodNum = -1;
+                    tvNum.setSelection(tvNum.length());
+                    return;
+                }
+
+                if (mNumBean != null) {
+                    if (mNumBean.getLimitNum() != -1 && Long.parseLong(editable.toString()) > mNumBean.getLimitNum()) {
+                        numAdd.setBackgroundResource(R.color.bg_gray);
+                        tvNum.setText(mNumBean.getLimitNum() + "");
+                        showToast(getContext(), "不能超过限购数量！");
+                        tvNum.setSelection(tvNum.length());
+                        mGoodNum = mNumBean.getLimitNum();
+                        return;
+                    }
+
+                    if (mNumBean.getShowStorage() != -1 && Long.parseLong(editable.toString()) > mNumBean.getShowStorage()) {
+                        numAdd.setBackgroundResource(R.color.bg_gray);
+                        tvNum.setText(mNumBean.getShowStorage() + "");
+                        showToast(getContext(), "不能超过库存数量！");
+                        tvNum.setSelection(tvNum.length());
+                        mGoodNum = mNumBean.getShowStorage();
+                        return;
+                    }
+                }
+                mGoodNum = Long.parseLong(editable.toString());
+                if (mGoodNum <= 1 || (mNumBean.getLeastBuyNum() != -1 && mGoodNum <= mNumBean.getLeastBuyNum())) {
+                    numLes.setBackgroundResource(R.color.bg_gray);
+                } else {
+                    numLes.setBackgroundColor(Color.TRANSPARENT);
+                }
+
+                if ((mNumBean.getLimitNum() != -1 && mGoodNum >= mNumBean.getLimitNum()) || (mNumBean.getShowStorage() != -1 && mGoodNum >= mNumBean.getShowStorage())) {
+                    numAdd.setBackgroundResource(R.color.bg_gray);
+                } else {
+                    numAdd.setBackgroundColor(Color.TRANSPARENT);
+                }
+            }
+        });
         numLes.setOnClickListener(this);
         numAdd.setOnClickListener(this);
 
@@ -168,14 +222,13 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
 
     /**
      * 设置是否显示提示
-     *
      */
     public void setCanShowHint(boolean showToast) {
-        NumChooseView.showToast = showToast;
+        this.showToast = showToast;
     }
 
 
-    public static void showToast(Context ct, String s) {
+    public void showToast(Context ct, String s) {
         if (showToast) {
             Toast.makeText(ct, s, Toast.LENGTH_SHORT).show();
         }

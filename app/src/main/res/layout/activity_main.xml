@@ -44,6 +44,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="确定" />
+
+        <Button
+            android:id="@+id/show_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="显示数量" />
     </LinearLayout>
 
 
