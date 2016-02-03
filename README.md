@@ -9,7 +9,7 @@ Add NumChooseView to your project
 ----------------------------
 Gradle:
 ```
-   compile 'cn.yzapp.numchooseview:numchooseviewlib:1.5.0@aar'
+   compile 'cn.yzapp.numchooseview:numchooseviewlib:[look download]@aar'
 ```
 
 Maven:
@@ -17,7 +17,7 @@ Maven:
 <dependency>
   <groupId>cn.yzapp.numchooseview</groupId>
   <artifactId>numchooseviewlib</artifactId>
-  <version>1.5.0</version>
+  <version>[look download]</version>
   <type>aar</type>
 </dependency>
 ```

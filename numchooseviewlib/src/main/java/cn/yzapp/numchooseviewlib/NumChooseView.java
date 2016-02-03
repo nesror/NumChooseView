@@ -172,8 +172,10 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                         return;
                     }
                 }
-                if (mNumBean.getBasicNum() == 1 || (Long.parseLong(tvNum.getText().toString()) % mNumBean.getBasicNum()) == 0) {
-                    mGoodNum = Long.parseLong(editable.toString());
+                if (mNumBean.getBasicNum() == 1 || (Long.parseLong(editable.toString()) % mNumBean.getBasicNum()) == 0) {
+                    if (Long.parseLong(editable.toString()) >= mNumBean.getLeastBuyNum()) {
+                        mGoodNum = Long.parseLong(editable.toString());
+                    }
                 }
                 if (mGoodNum <= 1 || (mNumBean.getLeastBuyNum() != NOT_LIMIT && mGoodNum <= mNumBean.getLeastBuyNum())) {
                     numLes.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -206,7 +208,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                 showToast(getContext(), "不能少于起购数量！");
             }
-        } else {
+        } else if (view.getId() == R.id.num_add) {
             if (mNumBean.getLimitNum() == NOT_LIMIT || ((mGoodNum + mNumBean.getBasicNum()) <=
                     mNumBean.getLimitNum())) {
                 if (mNumBean.getShowStorage() == NOT_LIMIT || mGoodNum < mNumBean.getShowStorage()) {
@@ -246,13 +248,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                                 //不能小于起购数量－置灰
                                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                                 showToast(getContext(), "不能少于起购数量！");
-                                if (mNumBean.getLeastBuyNum() != 0) {
+                                tvNum.setText(mGoodNum + "");
+                                /*if (mNumBean.getLeastBuyNum() != 0) {
                                     tvNum.setText(mNumBean.getLeastBuyNum() + "");
                                     mGoodNum = mNumBean.getLeastBuyNum();
                                 } else {
                                     tvNum.setText("1");
                                     mGoodNum = 1;
-                                }
+                                }*/
                                 tvNum.setSelection(tvNum.length());
                             }
                         } else {
