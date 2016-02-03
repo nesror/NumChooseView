@@ -18,33 +18,53 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp" />
 
-        <EditText
-            android:id="@+id/et_LeastBuyNum"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="最低购买数量"
-            android:inputType="number" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_LimitNum"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="限购"
-            android:inputType="number" />
+            <EditText
+                android:id="@+id/et_LeastBuyNum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="最低购买数量"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/et_ShowStorage"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="库存"
-            android:inputType="number" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_baseNum"
+            <EditText
+                android:id="@+id/et_LimitNum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="限购"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="购买基数"
-            android:inputType="number" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_ShowStorage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="库存"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_baseNum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="购买基数"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/ok"
