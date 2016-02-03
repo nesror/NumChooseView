@@ -9,7 +9,7 @@ Add NumChooseView to your project
 ----------------------------
 Gradle:
 ```
-   compile 'cn.yzapp.numchooseview:numchooseviewlib:0.9.8@aar'
+   compile 'cn.yzapp.numchooseview:numchooseviewlib:1.5.0@aar'
 ```
 
 Maven:
@@ -17,14 +17,15 @@ Maven:
 <dependency>
   <groupId>cn.yzapp.numchooseview</groupId>
   <artifactId>numchooseviewlib</artifactId>
-  <version>0.9.8</version>
+  <version>1.5.0</version>
   <type>aar</type>
 </dependency>
 ```
-[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ]()
+[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.5.0/numchooseviewlib-1.5.0.aar)
 
 Use
 ----------------------------
+ * 布局文件
 ````
 <cn.yzapp.numchooseviewlib.NumChooseView
             android:id="@+id/num_view"
@@ -33,17 +34,29 @@ Use
 ````
 
  * 得到数量
-  * getBuyNum()
- * 设置库存
-  * setShowStorage(long showStorage)
- * 设置最少购买数量
-  * setLeastBuyNum(long buyNum)
- * 设置限购数量
-  * setLimitNum(long limitNum)
+~~~~
+getBuyNum()
+~~~~
+ * 设置限制条件
+~~~~
+/**
+  * 设置限制条件
+  *
+  * @param showStorage 库存
+  * @param leastbuyNum 最少购买数量
+  * @param limitNum    限购数量
+  * @param basicNum    购买基数
+*/
+setTerm(long showStorage, long leastbuyNum, long limitNum, long basicNum)
+~~~~
  * 设置根视图，用于监听键盘是否收起
-  * setRootView(final View rootView)
+~~~~
+setRootView(final View rootView)
+~~~~
  * 设置是否显示提示
-  * setCanShowHint(boolean showToast)
+~~~~
+setCanShowHint(boolean showToast)
+~~~~
 
 Release History
 ------------------------
