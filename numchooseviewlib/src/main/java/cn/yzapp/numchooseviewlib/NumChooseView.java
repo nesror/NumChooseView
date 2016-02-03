@@ -113,9 +113,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         if (buyNum < 1) {
             buyNum = 1;
         }
+        mNumBean.setLeastBuyNum(buyNum);
         mGoodNum = buyNum;
         tvNum.setText("" + mGoodNum);
-        mNumBean.setLeastBuyNum(buyNum);
     }
 
     private void setLimitNum(long limitNum) {
@@ -233,8 +233,6 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
 
                         if (!rootViewCheck && heightDiff < 300) { // 键盘收起
                             rootViewCheck = true;
-                            //numLes.setEnabled(true);
-                            //numAdd.setEnabled(true);
                             if (TextUtils.isEmpty(tvNum.getText().toString())) {
                                 tvNum.setText(mGoodNum + "");
                                 tvNum.setSelection(tvNum.length());
@@ -259,8 +257,6 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                             }
                         } else {
                             rootViewCheck = false;
-                            //numLes.setEnabled(false);
-                            //numAdd.setEnabled(false);
                         }
                     }
                 });
@@ -286,6 +282,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         }
 
         if (mNumBean.getBasicNum() > mNumBean.getLeastBuyNum()) {
+            numLes.setBackgroundResource(R.color.numchoose_bg_gray);
             tvNum.setText(mNumBean.getBasicNum() + "");
             mGoodNum = mNumBean.getBasicNum();
         } else if (mNumBean.getLeastBuyNum() % mNumBean.getBasicNum() != 0) {
@@ -310,6 +307,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 numAdd.setEnabled(false);
                 tvNum.setEnabled(false);
             } else {
+                numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                 tvNum.setText(num + "");
                 mGoodNum = num;
             }
