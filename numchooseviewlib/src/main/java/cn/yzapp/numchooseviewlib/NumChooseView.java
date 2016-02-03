@@ -150,14 +150,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             public void afterTextChanged(Editable editable) {
                 //删除数量－置灰
                 if (editable.length() < 1) {
-                    numLes.setBackgroundResource(R.color.bg_gray);
+                    numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                     tvNum.setSelection(tvNum.length());
                     return;
                 }
 
                 if (mNumBean != null) {
                     if (mNumBean.getLimitNum() != NOT_LIMIT && Long.parseLong(editable.toString()) > mNumBean.getLimitNum()) {
-                        numAdd.setBackgroundResource(R.color.bg_gray);
+                        numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                         tvNum.setText((mGoodNum < mNumBean.getLimitNum() ? mGoodNum : mNumBean.getLimitNum()) + "");
                         showToast(getContext(), "不能超过限购数量！");
                         tvNum.setSelection(tvNum.length());
@@ -165,7 +165,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                     }
 
                     if (mNumBean.getShowStorage() != NOT_LIMIT && Long.parseLong(editable.toString()) > mNumBean.getShowStorage()) {
-                        numAdd.setBackgroundResource(R.color.bg_gray);
+                        numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                         tvNum.setText((mGoodNum < mNumBean.getShowStorage() ? mGoodNum : mNumBean.getShowStorage()) + "");
                         showToast(getContext(), "不能超过库存数量！");
                         tvNum.setSelection(tvNum.length());
@@ -176,13 +176,13 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                     mGoodNum = Long.parseLong(editable.toString());
                 }
                 if (mGoodNum <= 1 || (mNumBean.getLeastBuyNum() != NOT_LIMIT && mGoodNum <= mNumBean.getLeastBuyNum())) {
-                    numLes.setBackgroundResource(R.color.bg_gray);
+                    numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                 } else {
                     numLes.setBackgroundColor(Color.TRANSPARENT);
                 }
 
                 if ((mNumBean.getLimitNum() != NOT_LIMIT && mGoodNum >= mNumBean.getLimitNum()) || (mNumBean.getShowStorage() != NOT_LIMIT && mGoodNum >= mNumBean.getShowStorage())) {
-                    numAdd.setBackgroundResource(R.color.bg_gray);
+                    numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                 } else {
                     numAdd.setBackgroundColor(Color.TRANSPARENT);
                 }
@@ -203,7 +203,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 mGoodNum -= mNumBean.getBasicNum();
                 tvNum.setText("" + mGoodNum);
             } else {
-                numLes.setBackgroundResource(R.color.bg_gray);
+                numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                 showToast(getContext(), "不能少于起购数量！");
             }
         } else {
@@ -214,11 +214,11 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                     tvNum.setText("" + mGoodNum);
                     numLes.setBackgroundColor(Color.TRANSPARENT);
                 } else {
-                    numAdd.setBackgroundResource(R.color.bg_gray);
+                    numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                     showToast(getContext(), "不能超过库存数量！");
                 }
             } else {
-                numAdd.setBackgroundResource(R.color.bg_gray);
+                numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                 showToast(getContext(), "不能超过限购数量！");
             }
         }
@@ -246,7 +246,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                                 tvNum.setSelection(tvNum.length());
                             } else if ((mNumBean.getLeastBuyNum() != -1 && Long.parseLong(tvNum.getText().toString()) < mNumBean.getLeastBuyNum())) {
                                 //不能小于起购数量－置灰
-                                numLes.setBackgroundResource(R.color.bg_gray);
+                                numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                                 showToast(getContext(), "不能少于起购数量！");
                                 if (mNumBean.getLeastBuyNum() != 0) {
                                     tvNum.setText(mNumBean.getLeastBuyNum() + "");
@@ -277,8 +277,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             showToast(getContext(), "最大购买数量不能小于最低购买数量！");
             tvNum.setText(mNumBean.getLimitNum() + "");
             mGoodNum = mNumBean.getLimitNum();
-            numLes.setBackgroundResource(R.color.bg_gray);
-            numAdd.setBackgroundResource(R.color.bg_gray);
+            numLes.setBackgroundResource(R.color.numchoose_bg_gray);
+            numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
             numLes.setEnabled(false);
             numAdd.setEnabled(false);
             tvNum.setEnabled(false);
@@ -294,8 +294,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             if (mNumBean.getLimitNum() != NOT_LIMIT && (mNumBean.getLimitNum() < num)) {
                 tvNum.setText(mNumBean.getLimitNum() + "");
                 mGoodNum = mNumBean.getLimitNum();
-                numLes.setBackgroundResource(R.color.bg_gray);
-                numAdd.setBackgroundResource(R.color.bg_gray);
+                numLes.setBackgroundResource(R.color.numchoose_bg_gray);
+                numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                 numLes.setEnabled(false);
                 numAdd.setEnabled(false);
                 tvNum.setEnabled(false);
@@ -304,8 +304,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             if (mNumBean.getShowStorage() != NOT_LIMIT && (mNumBean.getShowStorage() < num)) {
                 tvNum.setText(mNumBean.getShowStorage() + "");
                 mGoodNum = mNumBean.getShowStorage();
-                numLes.setBackgroundResource(R.color.bg_gray);
-                numAdd.setBackgroundResource(R.color.bg_gray);
+                numLes.setBackgroundResource(R.color.numchoose_bg_gray);
+                numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                 numLes.setEnabled(false);
                 numAdd.setEnabled(false);
                 tvNum.setEnabled(false);
@@ -319,8 +319,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         if (mNumBean.getShowStorage() != NOT_LIMIT && (mNumBean.getShowStorage() < mNumBean.getLeastBuyNum() || mNumBean.getShowStorage() < mNumBean.getBasicNum())) {
             tvNum.setText(mNumBean.getShowStorage() + "");
             mGoodNum = mNumBean.getShowStorage();
-            numLes.setBackgroundResource(R.color.bg_gray);
-            numAdd.setBackgroundResource(R.color.bg_gray);
+            numLes.setBackgroundResource(R.color.numchoose_bg_gray);
+            numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
             numLes.setEnabled(false);
             numAdd.setEnabled(false);
             tvNum.setEnabled(false);

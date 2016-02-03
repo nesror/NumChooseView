@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="iv_num">
+    <style name="numchoose_iv_num">
         <item name="android:layout_width">30dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_margin">0.5dp</item>
         <item name="android:scaleType">centerInside</item>
     </style>
 
-    <style name="et_num">
+    <style name="numchoose_et_num">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@null</item>
@@ -20,16 +20,16 @@
         <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="v_line">
+    <style name="numchoose_v_line">
         <item name="android:layout_width">0.5dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/line_gray</item>
+        <item name="android:background">@color/numchoose_line_gray</item>
     </style>
 
-    <style name="ll_num">
+    <style name="numchoose_ll_num">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:background">@drawable/shape_white_1dp</item>
+        <item name="android:background">@drawable/numchoose_shape_white_1dp</item>
         <item name="android:orientation">horizontal</item>
     </style>
 </resources>
