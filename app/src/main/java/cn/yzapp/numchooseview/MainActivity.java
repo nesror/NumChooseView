@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        numChooseView.setLeastBuyNum(getNum(R.id.et_LeastBuyNum));
-        numChooseView.setLimitNum(getNum(R.id.et_LimitNum));
-        numChooseView.setShowStorage(getNum(R.id.et_ShowStorage));
+        numChooseView.setTerm(getNum(R.id.et_ShowStorage), getNum(R.id.et_LeastBuyNum), getNum(R.id.et_LimitNum), getNum(R.id.et_baseNum));
     }
 
     private long getNum(int res) {

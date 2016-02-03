@@ -39,6 +39,13 @@
             android:hint="库存"
             android:inputType="number" />
 
+        <EditText
+            android:id="@+id/et_baseNum"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="购买基数"
+            android:inputType="number" />
+
         <Button
             android:id="@+id/ok"
             android:layout_width="match_parent"
