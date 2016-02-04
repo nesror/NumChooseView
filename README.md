@@ -46,6 +46,7 @@ getBuyNum()
   * @param leastbuyNum 最少购买数量
   * @param limitNum    限购数量
   * @param basicNum    购买基数
+  * NOT_LIMIT 不做限制
 */
 setTerm(long showStorage, long leastbuyNum, long limitNum, long basicNum)
 ~~~~
