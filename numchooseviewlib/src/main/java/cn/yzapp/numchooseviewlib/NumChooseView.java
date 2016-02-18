@@ -241,7 +241,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                                 return;
                             }
                             if (mNumBean.getBasicNum() != 1 && (Long.parseLong(tvNum.getText().toString()) % mNumBean.getBasicNum()) != 0) {
-                                showToast(getContext(), "必须是购买基数的整数倍！");
+                                showToast(getContext(), "购买数量必须为整箱瓶数的倍数！");
                                 tvNum.setText(mGoodNum + "");
                                 tvNum.setSelection(tvNum.length());
                             } else if ((mNumBean.getLeastBuyNum() != -1 && Long.parseLong(tvNum.getText().toString()) < mNumBean.getLeastBuyNum())) {
