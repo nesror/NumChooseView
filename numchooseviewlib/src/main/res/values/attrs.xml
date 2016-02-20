@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="numchoose_CardEditTextView">
+        <attr name="numchoose_textColor" format="color" />
+        <attr name="numchoose_textSize" format="dimension" />
+    </declare-styleable>
+</resources>

@@ -3,12 +3,14 @@ package cn.yzapp.numchooseviewlib;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
@@ -41,17 +43,36 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     public NumChooseView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
+        setAttrs(context, attrs);
+
     }
 
     public NumChooseView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
+        setAttrs(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public NumChooseView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView();
+        setAttrs(context, attrs);
+    }
+
+    private void setAttrs(Context context, AttributeSet attrs) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.numchoose_CardEditTextView,
+                0, 0);
+        try {
+            int textColor = a.getColor(R.styleable.numchoose_CardEditTextView_numchoose_textColor, 0x666666);
+            float textSize = a.getDimension(R.styleable.numchoose_CardEditTextView_numchoose_textSize, 13);
+            tvNum.setTextColor(textColor);
+            tvNum.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+        } finally {
+            a.recycle();
+        }
     }
 
     /**
