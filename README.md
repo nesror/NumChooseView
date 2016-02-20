@@ -30,7 +30,9 @@ Use
 <cn.yzapp.numchooseviewlib.NumChooseView
             android:id="@+id/num_view"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            app:numchoose_textColor="#886666"
+            app:numchoose_textSize="13sp" />
 ````
 
  * 得到数量
