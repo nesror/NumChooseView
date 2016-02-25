@@ -34,6 +34,11 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private EditText tvNum;
     private ImageView numLes;
     private boolean showToast;
+    private boolean rootViewCheck;
+    private String mMsgLimit = "不能超过限购数量！";
+    private String mMsgShowStorage = "不能超过库存数量！";
+    private String mMsgLeastBuyNum = "不能少于起购数量！";
+    private String mMsgBasicNum = "购买数量必须为整箱件数的倍数！";
 
     public NumChooseView(Context context) {
         super(context);
@@ -69,7 +74,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             int textColor = a.getColor(R.styleable.numchoose_CardEditTextView_numchoose_textColor, 0x666666);
             float textSize = a.getDimension(R.styleable.numchoose_CardEditTextView_numchoose_textSize, 13);
             tvNum.setTextColor(textColor);
-            tvNum.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+            tvNum.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         } finally {
             a.recycle();
         }
@@ -91,7 +96,20 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         check();
     }
 
-    boolean rootViewCheck;
+    /**
+     * 设置提示语
+     *
+     * @param msgLimit       不能超过限购数量
+     * @param msgShowStorage 不能超过库存数量
+     * @param msgLeastBuyNum 不能少于起购数量
+     * @param msgBasicNum    购买数量必须为整箱件数的倍数
+     */
+    public void setMsg(String msgLimit, String msgShowStorage, String msgLeastBuyNum, String msgBasicNum) {
+        if (!TextUtils.isEmpty(msgLimit)) mMsgLimit = msgLimit;
+        if (!TextUtils.isEmpty(msgLimit)) mMsgShowStorage = msgShowStorage;
+        if (!TextUtils.isEmpty(msgLimit)) mMsgLeastBuyNum = msgLeastBuyNum;
+        if (!TextUtils.isEmpty(msgLimit)) mMsgBasicNum = msgBasicNum;
+    }
 
     /**
      * 设置根视图，用于监听键盘是否收起
@@ -178,17 +196,19 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
 
                 if (mNumBean != null) {
                     if (mNumBean.getLimitNum() != NOT_LIMIT && Long.parseLong(editable.toString()) > mNumBean.getLimitNum()) {
+                        // 不能超过限购数量
                         numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                         tvNum.setText((mGoodNum < mNumBean.getLimitNum() ? mGoodNum : mNumBean.getLimitNum()) + "");
-                        showToast(getContext(), "不能超过限购数量！");
+                        showToast(getContext(), mMsgLimit);
                         tvNum.setSelection(tvNum.length());
                         return;
                     }
 
                     if (mNumBean.getShowStorage() != NOT_LIMIT && Long.parseLong(editable.toString()) > mNumBean.getShowStorage()) {
+                        // 不能超过库存数量
                         numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
                         tvNum.setText((mGoodNum < mNumBean.getShowStorage() ? mGoodNum : mNumBean.getShowStorage()) + "");
-                        showToast(getContext(), "不能超过库存数量！");
+                        showToast(getContext(), mMsgShowStorage);
                         tvNum.setSelection(tvNum.length());
                         return;
                     }
@@ -226,8 +246,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 mGoodNum -= mNumBean.getBasicNum();
                 tvNum.setText("" + mGoodNum);
             } else {
+                // "不能少于起购数量！"
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
-                showToast(getContext(), "不能少于起购数量！");
+                showToast(getContext(), mMsgLeastBuyNum);
             }
         } else if (view.getId() == R.id.num_add) {
             if (mNumBean.getLimitNum() == NOT_LIMIT || ((mGoodNum + mNumBean.getBasicNum()) <=
@@ -237,12 +258,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                     tvNum.setText("" + mGoodNum);
                     numLes.setBackgroundColor(Color.TRANSPARENT);
                 } else {
+                    // "不能超过库存数量！"
                     numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
-                    showToast(getContext(), "不能超过库存数量！");
+                    showToast(getContext(), mMsgShowStorage);
                 }
             } else {
                 numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
-                showToast(getContext(), "不能超过限购数量！");
+                // "不能超过限购数量！";
+                showToast(getContext(), mMsgLimit);
             }
         }
     }
@@ -254,7 +277,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                     public void onGlobalLayout() {
                         int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
 
-                        if (!rootViewCheck && heightDiff < 300) { // 键盘收起
+                        if (!rootViewCheck && heightDiff < dip2px(getContext(), 200)) { // 键盘收起
                             rootViewCheck = true;
                             if (TextUtils.isEmpty(tvNum.getText().toString())) {
                                 tvNum.setText(mGoodNum + "");
@@ -262,13 +285,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                                 return;
                             }
                             if (mNumBean.getBasicNum() != 1 && (Long.parseLong(tvNum.getText().toString()) % mNumBean.getBasicNum()) != 0) {
-                                showToast(getContext(), "购买数量必须为整箱瓶数的倍数！");
+                                // "购买数量必须为整箱瓶数的倍数！"
+                                showToast(getContext(), mMsgBasicNum);
                                 tvNum.setText(mGoodNum + "");
                                 tvNum.setSelection(tvNum.length());
                             } else if ((mNumBean.getLeastBuyNum() != -1 && Long.parseLong(tvNum.getText().toString()) < mNumBean.getLeastBuyNum())) {
                                 //不能小于起购数量－置灰
                                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
-                                showToast(getContext(), "不能少于起购数量！");
+                                showToast(getContext(), mMsgLeastBuyNum);
                                 tvNum.setText(mGoodNum + "");
                                 /*if (mNumBean.getLeastBuyNum() != 0) {
                                     tvNum.setText(mNumBean.getLeastBuyNum() + "");
@@ -348,6 +372,11 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             tvNum.setEnabled(false);
         }
 
+    }
+
+    private int dip2px(Context context, int dip) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dip * scale + 0.5f);
     }
 
 }
