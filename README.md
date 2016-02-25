@@ -21,7 +21,7 @@ Maven:
   <type>aar</type>
 </dependency>
 ```
-[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.5.5/numchooseviewlib-1.5.5.aar)
+[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.5.7/numchooseviewlib-1.5.7.aar)
 
 Use
 ----------------------------
