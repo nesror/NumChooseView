@@ -39,6 +39,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private String mMsgShowStorage = "不能超过库存数量！";
     private String mMsgLeastBuyNum = "不能少于起购数量！";
     private String mMsgBasicNum = "购买数量必须为整箱件数的倍数！";
+    private IImeListener mImeListener;
 
     public NumChooseView(Context context) {
         super(context);
@@ -142,6 +143,20 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             return 0;
         }
         return Long.parseLong(tvNum.getText().toString());
+    }
+
+    /**
+     * 设置键盘状态监听
+     */
+    public void setOnImeListener(IImeListener imeListener) {
+        mImeListener = imeListener;
+    }
+
+    /**
+     * 校验数量
+     */
+    public boolean checkNum() {
+        return numCheck();
     }
 
     private void setShowStorage(long showStorage) {
@@ -279,6 +294,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
 
                         if (!rootViewCheck && heightDiff < dip2px(getContext(), 200)) { // 键盘收起
                             rootViewCheck = true;
+                            if (mImeListener != null) {
+                                mImeListener.onImeListener(false);
+                            }
                             if (TextUtils.isEmpty(tvNum.getText().toString())) {
                                 tvNum.setText(mGoodNum + "");
                                 tvNum.setSelection(tvNum.length());
@@ -304,6 +322,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                                 tvNum.setSelection(tvNum.length());
                             }
                         } else {
+                            if (mImeListener != null) {
+                                mImeListener.onImeListener(true);
+                            }
                             rootViewCheck = false;
                         }
                     }
@@ -377,6 +398,40 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private int dip2px(Context context, int dip) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dip * scale + 0.5f);
+    }
+
+    public interface IImeListener {
+        void onImeListener(boolean open);
+    }
+
+    private boolean numCheck() {
+        if (getShowNum() < 1) {
+            showToast(getContext(), "请输入购买数量");
+            return false;
+        }
+
+        if (mNumBean.getLimitNum() > 0 && mNumBean.getLimitNum() != 9999 &&
+                getShowNum() > mNumBean.getLimitNum()) {
+            showToast(getContext(), mMsgLimit);
+            return false;
+        }
+
+        if (getShowNum() > mNumBean.getShowStorage()) {
+            showToast(getContext(), mMsgShowStorage);
+            return false;
+        }
+
+        if (mNumBean.getLeastBuyNum() > 0 && getShowNum() < mNumBean.getLeastBuyNum()) {
+            showToast(getContext(), mMsgLeastBuyNum);
+            return false;
+        }
+
+        if (mNumBean.getBasicNum() > 1 && (getShowNum() % mNumBean.getBasicNum()) != 0) {
+            showToast(getContext(), mMsgBasicNum);
+            return false;
+        }
+
+        return true;
     }
 
 }
