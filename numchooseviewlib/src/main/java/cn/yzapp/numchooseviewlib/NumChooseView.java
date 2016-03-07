@@ -10,9 +10,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +29,7 @@ import cn.yzapp.numchooseviewlib.util.ToastUtil;
  * desc:
  */
 public class NumChooseView extends LinearLayout implements View.OnClickListener {
+    public final static String TAG = "NumChooseView";
     public final static int NOT_LIMIT = -1;
     private NumBean mNumBean;
     private long mGoodNum = 1;
@@ -40,6 +43,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private String mMsgLeastBuyNum = "不能少于起购数量！";
     private String mMsgBasicNum = "购买数量必须为整箱件数的倍数！";
     private IImeListener mImeListener;
+    private boolean isChecked;
 
     public NumChooseView(Context context) {
         super(context);
@@ -257,6 +261,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.num_les) {
+            hideSoftInput();
+
             if (mNumBean.getLeastBuyNum() == NOT_LIMIT || (mGoodNum - mNumBean.getBasicNum()) >= (mNumBean.getLeastBuyNum() == 0 ? 1 : mNumBean.getLeastBuyNum())) {
                 mGoodNum -= mNumBean.getBasicNum();
                 tvNum.setText("" + mGoodNum);
@@ -266,6 +272,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 showToast(getContext(), mMsgLeastBuyNum);
             }
         } else if (view.getId() == R.id.num_add) {
+            hideSoftInput();
+
             if (mNumBean.getLimitNum() == NOT_LIMIT || ((mGoodNum + mNumBean.getBasicNum()) <=
                     mNumBean.getLimitNum())) {
                 if (mNumBean.getShowStorage() == NOT_LIMIT || mGoodNum < mNumBean.getShowStorage()) {
@@ -282,6 +290,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 // "不能超过限购数量！";
                 showToast(getContext(), mMsgLimit);
             }
+        }
+    }
+
+    private void hideSoftInput() {
+        try {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(tvNum.getWindowToken(), 0);
+        } catch (Exception e) {
         }
     }
 
@@ -332,14 +348,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     }
 
     private void showToast(Context ct, String s) {
-        if (showToast) {
+        if (showToast && isChecked) {
             ToastUtil.shortToast(ct, s);
         }
     }
 
     private void check() {
         if (mNumBean.getLimitNum() != NOT_LIMIT && (mNumBean.getLimitNum() < mNumBean.getLeastBuyNum())) {
-            showToast(getContext(), "最大购买数量不能小于最低购买数量！");
+            Log.w(TAG, "最大购买数量不能小于最低购买数量！");
             tvNum.setText(mNumBean.getLimitNum() + "");
             mGoodNum = mNumBean.getLimitNum();
             numLes.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -347,6 +363,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             numLes.setEnabled(false);
             numAdd.setEnabled(false);
             tvNum.setEnabled(false);
+            showToast = false;
+            isChecked = true;
             return;
         }
 
@@ -358,6 +376,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             long num = mNumBean.getBasicNum() * (mNumBean.getLeastBuyNum() / mNumBean.getBasicNum() + 1);
 
             if (mNumBean.getLimitNum() != NOT_LIMIT && (mNumBean.getLimitNum() < num)) {
+                // 购买数量大于限购数量
                 tvNum.setText(mNumBean.getLimitNum() + "");
                 mGoodNum = mNumBean.getLimitNum();
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -365,9 +384,12 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 numLes.setEnabled(false);
                 numAdd.setEnabled(false);
                 tvNum.setEnabled(false);
+                showToast = false;
+                isChecked = true;
                 return;
             }
             if (mNumBean.getShowStorage() != NOT_LIMIT && (mNumBean.getShowStorage() < num)) {
+                // 购买数量大于库存数量
                 tvNum.setText(mNumBean.getShowStorage() + "");
                 mGoodNum = mNumBean.getShowStorage();
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -375,6 +397,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 numLes.setEnabled(false);
                 numAdd.setEnabled(false);
                 tvNum.setEnabled(false);
+                showToast = false;
             } else {
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                 tvNum.setText(num + "");
@@ -384,6 +407,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         }
 
         if (mNumBean.getShowStorage() != NOT_LIMIT && (mNumBean.getShowStorage() < mNumBean.getLeastBuyNum() || mNumBean.getShowStorage() < mNumBean.getBasicNum())) {
+            // 库存数量小于最低购买数量或购买基数
             tvNum.setText(mNumBean.getShowStorage() + "");
             mGoodNum = mNumBean.getShowStorage();
             numLes.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -391,7 +415,10 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             numLes.setEnabled(false);
             numAdd.setEnabled(false);
             tvNum.setEnabled(false);
+            showToast = false;
         }
+
+        isChecked = true;
 
     }
 
