@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.5.14"
+version = "1.6.2"
 
 android {
     compileSdkVersion 23
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 21
+        versionCode 29
         versionName version
     }
     buildTypes {

@@ -42,8 +42,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private String mMsgShowStorage = "不能超过库存数量！";
     private String mMsgLeastBuyNum = "不能少于起购数量！";
     private String mMsgBasicNum = "购买数量必须为整箱件数的倍数！";
-    private IImeListener mImeListener;
+    private OnImeListener mImeListener;
     private boolean isChecked;
+    private OnNumChangeListener mNumChangeListener;
 
     public NumChooseView(Context context) {
         super(context);
@@ -152,8 +153,15 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     /**
      * 设置键盘状态监听
      */
-    public void setOnImeListener(IImeListener imeListener) {
+    public void setOnImeListener(OnImeListener imeListener) {
         mImeListener = imeListener;
+    }
+
+    /**
+     * 设置数量改变监听
+     */
+    public void setOnNumChangeListener(OnNumChangeListener numChangeListener) {
+        mNumChangeListener = numChangeListener;
     }
 
     /**
@@ -177,6 +185,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     }
 
     private void setLimitNum(long limitNum) {
+        if (limitNum == 0) {
+            limitNum = 1;
+        }
         mNumBean.setLimitNum(limitNum);
     }
 
@@ -235,6 +246,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 if (mNumBean.getBasicNum() == 1 || (Long.parseLong(editable.toString()) % mNumBean.getBasicNum()) == 0) {
                     if (Long.parseLong(editable.toString()) >= mNumBean.getLeastBuyNum()) {
                         mGoodNum = Long.parseLong(editable.toString());
+                        if (mNumChangeListener != null) {
+                            mNumChangeListener.onNumChangeListener(mGoodNum);
+                        }
                     }
                 }
                 if (mGoodNum <= 1 || (mNumBean.getLeastBuyNum() != NOT_LIMIT && mGoodNum <= mNumBean.getLeastBuyNum())) {
@@ -266,6 +280,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             if (mNumBean.getLeastBuyNum() == NOT_LIMIT || (mGoodNum - mNumBean.getBasicNum()) >= (mNumBean.getLeastBuyNum() == 0 ? 1 : mNumBean.getLeastBuyNum())) {
                 mGoodNum -= mNumBean.getBasicNum();
                 tvNum.setText("" + mGoodNum);
+                if (mNumChangeListener != null) {
+                    mNumChangeListener.onNumChangeListener(mGoodNum);
+                }
             } else {
                 // "不能少于起购数量！"
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -280,6 +297,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                     mGoodNum += mNumBean.getBasicNum();
                     tvNum.setText("" + mGoodNum);
                     numLes.setBackgroundColor(Color.TRANSPARENT);
+                    if (mNumChangeListener != null) {
+                        mNumChangeListener.onNumChangeListener(mGoodNum);
+                    }
                 } else {
                     // "不能超过库存数量！"
                     numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -427,8 +447,12 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         return (int) (dip * scale + 0.5f);
     }
 
-    public interface IImeListener {
+    public interface OnImeListener {
         void onImeListener(boolean open);
+    }
+
+    public interface OnNumChangeListener {
+        void onNumChangeListener(long num);
     }
 
     private boolean numCheck() {

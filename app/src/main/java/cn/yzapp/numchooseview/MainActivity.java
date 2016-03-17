@@ -24,10 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numChooseView.setCanShowHint(true);
 
         findViewById(R.id.ok).setOnClickListener(this);
-        findViewById(R.id.show_num).setOnClickListener(new View.OnClickListener() {
+
+        numChooseView.setOnNumChangeListener(new NumChooseView.OnNumChangeListener() {
             @Override
-            public void onClick(View view) {
-                ((Button) view).setText("数量" + numChooseView.getBuyNum());
+            public void onNumChangeListener(long num) {
+                ((Button) findViewById(R.id.show_num)).setText("数量" + numChooseView.getBuyNum());
             }
         });
 
