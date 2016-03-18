@@ -21,7 +21,7 @@ Maven:
   <type>aar</type>
 </dependency>
 ```
-[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.5.7/numchooseviewlib-1.5.7.aar)
+[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.6.2/numchooseviewlib-1.6.2.aar)
 
 Use
 ----------------------------
@@ -39,6 +39,12 @@ Use
 ~~~~
 getBuyNum()
 ~~~~
+
+ * 得到显示数量
+~~~~
+getShowNum()
+~~~~
+
  * 设置限制条件
 ~~~~
 /**
@@ -54,7 +60,11 @@ setTerm(long showStorage, long leastbuyNum, long limitNum, long basicNum)
 ~~~~
  * 设置根视图，用于监听键盘是否收起
 ~~~~
-setRootView(final View rootView)
+setRootView(View rootView)
+~~~~
+* 设置数量改变监听
+~~~~
+setOnNumChangeListener(OnNumChangeListener numChangeListener)
 ~~~~
  * 设置是否显示提示
 ~~~~
