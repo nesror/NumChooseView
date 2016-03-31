@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numChooseView.setTerm(getNum(R.id.et_ShowStorage), getNum(R.id.et_LeastBuyNum), getNum(R.id.et_LimitNum), getNum(R.id.et_baseNum));
     }
 
-    private long getNum(int res) {
+    private int getNum(int res) {
         String num = ((EditText) findViewById(res)).getText().toString();
         if (TextUtils.isEmpty(num)) {
             return numChooseView.NOT_LIMIT;
         } else {
-            return Long.parseLong(num);
+            return Integer.parseInt(num);
         }
 
     }

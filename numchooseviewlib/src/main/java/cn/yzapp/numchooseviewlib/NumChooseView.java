@@ -32,7 +32,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     public final static String TAG = "NumChooseView";
     public final static int NOT_LIMIT = -1;
     private NumBean mNumBean;
-    private long mGoodNum = 1;
+    private int mGoodNum = 1;
     private ImageView numAdd;
     private EditText tvNum;
     private ImageView numLes;
@@ -94,7 +94,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
      * @param limitNum    限购数量
      * @param basicNum    购买基数
      */
-    public void setTerm(long showStorage, long leastbuyNum, long limitNum, long basicNum) {
+    public void setTerm(int showStorage, int leastbuyNum, int limitNum, int basicNum) {
         setShowStorage(showStorage);
         setLeastBuyNum(leastbuyNum);
         setLimitNum(limitNum);
@@ -171,11 +171,11 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         return numCheck();
     }
 
-    private void setShowStorage(long showStorage) {
+    private void setShowStorage(int showStorage) {
         mNumBean.setShowStorage(showStorage);
     }
 
-    private void setLeastBuyNum(long buyNum) {
+    private void setLeastBuyNum(int buyNum) {
         if (buyNum < 1) {
             buyNum = 1;
         }
@@ -184,14 +184,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         tvNum.setText("" + mGoodNum);
     }
 
-    private void setLimitNum(long limitNum) {
+    private void setLimitNum(int limitNum) {
         if (limitNum == 0) {
             limitNum = 1;
         }
         mNumBean.setLimitNum(limitNum);
     }
 
-    private void setBasicNum(long basicNum) {
+    private void setBasicNum(int basicNum) {
         if (basicNum < 1) {
             basicNum = 1;
         }
@@ -245,7 +245,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 }
                 if (mNumBean.getBasicNum() == 1 || (Long.parseLong(editable.toString()) % mNumBean.getBasicNum()) == 0) {
                     if (Long.parseLong(editable.toString()) >= mNumBean.getLeastBuyNum()) {
-                        mGoodNum = Long.parseLong(editable.toString());
+                        mGoodNum = Integer.parseInt(editable.toString());
                         if (mNumChangeListener != null) {
                             mNumChangeListener.onNumChangeListener(mGoodNum);
                         }
@@ -286,7 +286,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             } else {
                 // "不能少于起购数量！"
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
-                showToast(getContext(), mMsgLeastBuyNum);
+                if (mGoodNum > 1) {
+                    showToast(getContext(), mMsgLeastBuyNum);
+                }
             }
         } else if (view.getId() == R.id.num_add) {
             hideSoftInput();
@@ -368,7 +370,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     }
 
     private void showToast(Context ct, String s) {
-        if (showToast && isChecked) {
+        if (showToast && isChecked && s.length() > 0) {
             ToastUtil.shortToast(ct, s);
         }
     }
@@ -393,7 +395,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             tvNum.setText(mNumBean.getBasicNum() + "");
             mGoodNum = mNumBean.getBasicNum();
         } else if (mNumBean.getLeastBuyNum() % mNumBean.getBasicNum() != 0) {
-            long num = mNumBean.getBasicNum() * (mNumBean.getLeastBuyNum() / mNumBean.getBasicNum() + 1);
+            int num = mNumBean.getBasicNum() * (mNumBean.getLeastBuyNum() / mNumBean.getBasicNum() + 1);
 
             if (mNumBean.getLimitNum() != NOT_LIMIT && (mNumBean.getLimitNum() < num)) {
                 // 购买数量大于限购数量

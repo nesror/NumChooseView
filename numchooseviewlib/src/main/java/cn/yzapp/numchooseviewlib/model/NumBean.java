@@ -9,40 +9,40 @@ import cn.yzapp.numchooseviewlib.NumChooseView;
  * desc:
  */
 public class NumBean {
-    private long showStorage = NumChooseView.NOT_LIMIT;//库存
-    private long leastBuyNum = 1;//最少购买数量
-    private long limitNum = NumChooseView.NOT_LIMIT;//限购数量
-    private long basicNum = 1;//购买基数
+    private int showStorage = NumChooseView.NOT_LIMIT;//库存
+    private int leastBuyNum = 1;//最少购买数量
+    private int limitNum = NumChooseView.NOT_LIMIT;//限购数量
+    private int basicNum = 1;//购买基数
 
-    public long getShowStorage() {
+    public int getShowStorage() {
         return showStorage;
     }
 
-    public void setShowStorage(long showStorage) {
+    public void setShowStorage(int showStorage) {
         this.showStorage = showStorage;
     }
 
-    public long getLeastBuyNum() {
+    public int getLeastBuyNum() {
         return leastBuyNum;
     }
 
-    public void setLeastBuyNum(long leastBuyNum) {
+    public void setLeastBuyNum(int leastBuyNum) {
         this.leastBuyNum = leastBuyNum;
     }
 
-    public long getLimitNum() {
+    public int getLimitNum() {
         return limitNum;
     }
 
-    public void setLimitNum(long limitNum) {
+    public void setLimitNum(int limitNum) {
         this.limitNum = limitNum;
     }
 
-    public long getBasicNum() {
+    public int getBasicNum() {
         return basicNum;
     }
 
-    public void setBasicNum(long basicNum) {
+    public void setBasicNum(int basicNum) {
         this.basicNum = basicNum;
     }
 }
