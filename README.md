@@ -1,4 +1,5 @@
 NumChooseView
+一个支持起购限购库存和购买基数的数量选择控件
 ========
 
 <img src="img\img_1.png" width="200" height="100"/>
@@ -21,7 +22,7 @@ Maven:
   <type>aar</type>
 </dependency>
 ```
-[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.6.2/numchooseviewlib-1.6.2.aar)
+[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.6.4/numchooseviewlib-1.6.4.aar)
 
 Use
 ----------------------------
@@ -56,7 +57,7 @@ getShowNum()
   * @param basicNum    购买基数
   * NOT_LIMIT 不做限制
 */
-setTerm(long showStorage, long leastbuyNum, long limitNum, long basicNum)
+setTerm(int showStorage, int leastbuyNum, int limitNum, int basicNum)
 ~~~~
  * 设置根视图，用于监听键盘是否收起
 ~~~~
