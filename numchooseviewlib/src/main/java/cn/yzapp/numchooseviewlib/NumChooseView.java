@@ -45,6 +45,8 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private OnImeListener mImeListener;
     private boolean isChecked;
     private OnNumChangeListener mNumChangeListener;
+    private OnNumAddListener mAddListener;
+    private OnNumLesListener mLesListener;
 
     public NumChooseView(Context context) {
         super(context);
@@ -165,6 +167,20 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     }
 
     /**
+     * 设置add监听
+     */
+    public void setOnAddListener(OnNumAddListener addListener) {
+        mAddListener = addListener;
+    }
+
+    /**
+     * 设置les监听
+     */
+    public void setOnLesListener(OnNumLesListener lesListener) {
+        mLesListener = lesListener;
+    }
+
+    /**
      * 校验数量
      */
     public boolean checkNum() {
@@ -275,6 +291,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.num_les) {
+            if(mLesListener != null){
+                mLesListener.onNumLesListener();
+            }
             hideSoftInput();
 
             if (mNumBean.getLeastBuyNum() == NOT_LIMIT || (mGoodNum - mNumBean.getBasicNum()) >= (mNumBean.getLeastBuyNum() == 0 ? 1 : mNumBean.getLeastBuyNum())) {
@@ -291,6 +310,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 }
             }
         } else if (view.getId() == R.id.num_add) {
+            if(mAddListener != null){
+                mAddListener.onNumAddListener();
+            }
             hideSoftInput();
 
             if (mNumBean.getLimitNum() == NOT_LIMIT || ((mGoodNum + mNumBean.getBasicNum()) <=
@@ -455,6 +477,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
 
     public interface OnNumChangeListener {
         void onNumChangeListener(long num);
+    }
+
+    public interface OnNumAddListener {
+        void onNumAddListener();
+    }
+
+    public interface OnNumLesListener {
+        void onNumLesListener();
     }
 
     private boolean numCheck() {

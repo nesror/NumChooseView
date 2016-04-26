@@ -1,14 +1,16 @@
 package cn.yzapp.numchooseview;
 
 import android.os.Bundle;
+import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
+import android.test.mock.MockApplication;
+import android.test.suitebuilder.annotation.SmallTest;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import cn.yzapp.numchooseviewlib.NumChooseView;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,5 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return Integer.parseInt(num);
         }
 
+    }
+
+    public int test(){
+        return 3;
     }
 }
