@@ -26,7 +26,6 @@ import cn.yzapp.numchooseviewlib.util.ToastUtil;
  * @author: nestor
  * time: 1/22 022-13:58.
  * email: nestor@yzapp.cn
- * desc:
  */
 public class NumChooseView extends LinearLayout implements View.OnClickListener {
     public final static String TAG = "NumChooseView";
