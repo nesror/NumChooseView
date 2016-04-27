@@ -46,6 +46,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     private OnNumChangeListener mNumChangeListener;
     private OnNumAddListener mAddListener;
     private OnNumLesListener mLesListener;
+    private boolean mChangeEnabledAble = true;
 
     public NumChooseView(Context context) {
         super(context);
@@ -117,6 +118,14 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         if (!TextUtils.isEmpty(msgLimit)) mMsgLeastBuyNum = msgLeastBuyNum;
         if (!TextUtils.isEmpty(msgLimit)) mMsgBasicNum = msgBasicNum;
     }
+
+    /**
+     * 这是是否可以改变加减的Enabled属性，默认true
+     */
+    public void setChangeEnabledAble(boolean changeEnabledAble) {
+        mChangeEnabledAble = changeEnabledAble;
+    }
+
 
     /**
      * 设置根视图，用于监听键盘是否收起
@@ -290,7 +299,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.num_les) {
-            if(mLesListener != null){
+            if (mLesListener != null) {
                 mLesListener.onNumLesListener();
             }
             hideSoftInput();
@@ -309,7 +318,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 }
             }
         } else if (view.getId() == R.id.num_add) {
-            if(mAddListener != null){
+            if (mAddListener != null) {
                 mAddListener.onNumAddListener();
             }
             hideSoftInput();
@@ -403,9 +412,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             mGoodNum = mNumBean.getLimitNum();
             numLes.setBackgroundResource(R.color.numchoose_bg_gray);
             numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
-            numLes.setEnabled(false);
-            numAdd.setEnabled(false);
-            tvNum.setEnabled(false);
+            changeEnabled();
             showToast = false;
             isChecked = true;
             return;
@@ -424,9 +431,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 mGoodNum = mNumBean.getLimitNum();
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                 numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
-                numLes.setEnabled(false);
-                numAdd.setEnabled(false);
-                tvNum.setEnabled(false);
+                changeEnabled();
                 showToast = false;
                 isChecked = true;
                 return;
@@ -437,9 +442,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
                 mGoodNum = mNumBean.getShowStorage();
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
                 numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
-                numLes.setEnabled(false);
-                numAdd.setEnabled(false);
-                tvNum.setEnabled(false);
+                changeEnabled();
                 showToast = false;
             } else {
                 numLes.setBackgroundResource(R.color.numchoose_bg_gray);
@@ -455,14 +458,20 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
             mGoodNum = mNumBean.getShowStorage();
             numLes.setBackgroundResource(R.color.numchoose_bg_gray);
             numAdd.setBackgroundResource(R.color.numchoose_bg_gray);
-            numLes.setEnabled(false);
-            numAdd.setEnabled(false);
-            tvNum.setEnabled(false);
+            changeEnabled();
             showToast = false;
         }
 
         isChecked = true;
 
+    }
+
+    private void changeEnabled() {
+        if (mChangeEnabledAble) {
+            numLes.setEnabled(false);
+            numAdd.setEnabled(false);
+            tvNum.setEnabled(false);
+        }
     }
 
     private int dip2px(Context context, int dip) {
