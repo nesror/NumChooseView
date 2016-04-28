@@ -114,9 +114,9 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
      */
     public void setMsg(String msgLimit, String msgShowStorage, String msgLeastBuyNum, String msgBasicNum) {
         if (!TextUtils.isEmpty(msgLimit)) mMsgLimit = msgLimit;
-        if (!TextUtils.isEmpty(msgLimit)) mMsgShowStorage = msgShowStorage;
-        if (!TextUtils.isEmpty(msgLimit)) mMsgLeastBuyNum = msgLeastBuyNum;
-        if (!TextUtils.isEmpty(msgLimit)) mMsgBasicNum = msgBasicNum;
+        if (!TextUtils.isEmpty(msgShowStorage)) mMsgShowStorage = msgShowStorage;
+        if (!TextUtils.isEmpty(msgLeastBuyNum)) mMsgLeastBuyNum = msgLeastBuyNum;
+        if (!TextUtils.isEmpty(msgBasicNum)) mMsgBasicNum = msgBasicNum;
     }
 
     /**
