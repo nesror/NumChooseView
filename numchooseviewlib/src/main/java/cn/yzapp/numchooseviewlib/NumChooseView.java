@@ -137,6 +137,16 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
     }
 
     /**
+     * 设置数量
+     *
+     * @param num 数量
+     */
+    public void setNowNum(int num) {
+        tvNum.setText(num+"");
+        mGoodNum = num;
+    }
+
+    /**
      * 设置是否显示提示
      */
     public void setCanShowHint(boolean showToast) {
