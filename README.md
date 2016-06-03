@@ -8,21 +8,22 @@ NumChooseView
 
 Add NumChooseView to your project
 ----------------------------
-Gradle:
+Step 1. Add the JitPack repository to your build file
+```
+	maven { url "https://www.jitpack.io" }
+```
+
+Step 2. Add the dependency
+```
+	compile 'com.github.nesror:NumChooseView:[look download]'
+```
+[![](https://www.jitpack.io/v/nesror/NumChooseView.svg)](https://www.jitpack.io/#nesror/NumChooseView)
+
+* 新版本已经使用jitpack.io，以下是旧版本：
+* Gradle:
 ```
    compile 'cn.yzapp.numchooseview:numchooseviewlib:[look download]@aar'
 ```
-
-Maven:
-```
-<dependency>
-  <groupId>cn.yzapp.numchooseview</groupId>
-  <artifactId>numchooseviewlib</artifactId>
-  <version>[look download]</version>
-  <type>aar</type>
-</dependency>
-```
-[ ![Download](https://api.bintray.com/packages/nesror/maven/NumChooseView/images/download.svg) ](https://bintray.com/artifact/download/nesror/maven/cn/yzapp/numchooseview/numchooseviewlib/1.6.4/numchooseviewlib-1.6.4.aar)
 
 Use
 ----------------------------

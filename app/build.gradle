@@ -26,5 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile project(':numchooseviewlib')
     //compile 'cn.yzapp.numchooseview:numchooseviewlib:1.5.0@aar'
-    //compile 'com.github.nesror:NumChooseView:v1.6.8'
+    //compile 'com.github.nesror:NumChooseView:v1.6.10'
 }
