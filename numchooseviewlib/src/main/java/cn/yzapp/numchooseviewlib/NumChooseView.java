@@ -205,7 +205,7 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         return numCheck();
     }
 
-    public setButtonEnabled(boolean enable){
+    public void setButtonEnabled(boolean enable){
         numLes.setEnabled(enable);
         numAdd.setEnabled(enable);
         tvNum.setEnabled(enable);
