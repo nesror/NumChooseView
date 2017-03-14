@@ -205,6 +205,12 @@ public class NumChooseView extends LinearLayout implements View.OnClickListener 
         return numCheck();
     }
 
+    public setButtonEnabled(boolean enable){
+        numLes.setEnabled(enable);
+        numAdd.setEnabled(enable);
+        tvNum.setEnabled(enable);
+    }
+
     private void setShowStorage(int showStorage) {
         mNumBean.setShowStorage(showStorage);
     }
